@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The QR - Project Proposals</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 h-screen flex overflow-hidden">
+
+    <!-- 사이드바 -->
+    <aside class="w-64 bg-white border-r border-slate-200 flex flex-col hidden md:flex z-20">
+        <div class="p-6 flex items-center border-b border-slate-100">
+            <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold mr-3">Q</div>
+            <h1 class="text-xl font-bold text-slate-800">The QR <span class="text-xs text-blue-500 font-normal">AI Ops</span></h1>
+        </div>
+
+        <nav class="flex-1 overflow-y-auto py-4">
+            <ul class="space-y-1 px-3">
+                <li>
+                    <a href="/" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-lg transition-colors group">
+                        <i class="fa-solid fa-chart-pie w-6 text-center group-hover:text-blue-600"></i>
+                        <span class="ml-2 font-medium">대시보드</span>
+                    </a>
+                </li>
+                <li>
+                    <div class="px-4 py-2 text-xs font-semibold text-slate-400 uppercase tracking-wider mt-4 mb-1">Process</div>
+                </li>
+                <li>
+                    <a href="01_meeting.html" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-lg transition-colors group">
+                        <i class="fa-solid fa-microphone-lines w-6 text-center group-hover:text-blue-600"></i>
+                        <span class="ml-2 font-medium">1. 미팅 분석/회의록</span>
+                        <i class="fa-solid fa-check text-green-500 ml-auto text-sm"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="02_marketing.html" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-lg transition-colors group">
+                        <i class="fa-solid fa-lightbulb w-6 text-center group-hover:text-blue-600"></i>
+                        <span class="ml-2 font-medium">2. 전략/브랜딩 수립</span>
+                        <i class="fa-solid fa-check text-green-500 ml-auto text-sm"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="03_plan.html" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-lg transition-colors group">
+                        <i class="fa-solid fa-file-powerpoint w-6 text-center group-hover:text-blue-600"></i>
+                        <span class="ml-2 font-medium">3. 기획서 생성</span>
+                        <i class="fa-solid fa-check text-green-500 ml-auto text-sm"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="04_contents.html" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-lg transition-colors group">
+                        <i class="fa-solid fa-photo-film w-6 text-center group-hover:text-blue-600"></i>
+                        <span class="ml-2 font-medium">4. 콘텐츠 초안 제작</span>
+                        <i class="fa-solid fa-check text-green-500 ml-auto text-sm"></i>
+                    </a>
+                </li>
+                <li>
+                    <div class="px-4 py-2 text-xs font-semibold text-slate-400 uppercase tracking-wider mt-4 mb-1">Expert Matching</div>
+                </li>
+                <li>
+                    <a href="05_matching.html" class="flex items-center px-4 py-3 bg-blue-50 text-blue-700 rounded-lg transition-colors">
+                        <i class="fa-solid fa-handshake w-6 text-center"></i>
+                        <span class="ml-2 font-bold">전문가 매칭 요청</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="p-4 border-t border-slate-200">
+            <div class="flex items-center">
+                <img src="https://ui-avatars.com/api/?name=Youngmin+Jeong&background=0D8ABC&color=fff" alt="User" class="w-9 h-9 rounded-full">
+                <div class="ml-3">
+                    <p class="text-sm font-medium text-slate-700">정영민 대표</p>
+                    <p class="text-xs text-slate-500">The QR Admin</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- 메인 컨텐츠 -->
+    <main class="flex-1 flex flex-col min-w-0 overflow-hidden">
+        <!-- 헤더 -->
+        <header class="bg-white border-b border-slate-200 h-16 flex items-center justify-between px-6 lg:px-8 z-10 shrink-0">
+            <div class="flex items-center text-slate-400 text-sm">
+                <span>Marketplace</span>
+                <i class="fa-solid fa-chevron-right mx-2 text-xs"></i>
+                <span class="text-slate-800 font-medium">받은 제안 관리</span>
+            </div>
+            <div class="flex items-center space-x-3">
+                <button class="text-slate-400 hover:text-slate-600 relative">
+                    <i class="fa-regular fa-bell text-xl"></i>
+                    <span class="absolute top-0 right-0 h-2.5 w-2.5 bg-red-500 rounded-full border-2 border-white"></span>
+                </button>
+                <div class="h-8 w-px bg-slate-200 mx-2"></div>
+                <span class="text-xs font-medium text-slate-500">도착한 제안: <strong class="text-blue-600">3건</strong> (모집 마감 D-2)</span>
+            </div>
+        </header>
+
+        <!-- 컨텐츠 영역 -->
+        <div class="flex-1 overflow-y-auto bg-slate-50 p-6 lg:p-8">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- 왼쪽: 내가 등록한 프로젝트 공고 (Sticky) -->
+                <div class="lg:col-span-1 space-y-6">
+                    <h3 class="text-sm font-bold text-slate-500 uppercase px-1">My Project Request</h3>
+                    
+                    <!-- 프로젝트 요청 카드 -->
+                    <div class="bg-white rounded-xl shadow-lg border border-blue-100 p-6 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-indigo-600"></div>
+                        
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full font-bold animate-pulse">
+                                <i class="fa-solid fa-circle text-[8px] mr-1"></i>전문가 모집중
+                            </span>
+                            <button class="text-xs text-slate-400 hover:text-blue-600"><i class="fa-solid fa-pen mr-1"></i>수정</button>
+                        </div>
+                        
+                        <h2 class="text-xl font-bold text-slate-800 mb-2">2026 통영시 관광 숏폼 마케팅</h2>
+                        <p class="text-sm text-slate-500 mb-6">"현지인 맛집" 컨셉의 숏폼 영상 5편 제작 및 인스타그램 릴스 배포</p>
+                        
+                        <!-- 핵심 조건 -->
+                        <div class="bg-slate-50 rounded-lg p-4 space-y-3 mb-6 border border-slate-100">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-slate-500"><i class="fa-solid fa-won-sign w-5 text-center mr-1"></i>희망 예산</span>
+                                <span class="font-bold text-slate-800">50만원 ~ 80만원</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-slate-500"><i class="fa-regular fa-calendar w-5 text-center mr-1"></i>희망 마감일</span>
+                                <span class="font-bold text-slate-800">2026. 02. 20 (2주)</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-slate-500"><i class="fa-solid fa-film w-5 text-center mr-1"></i>필요 작업</span>
+                                <span class="font-bold text-slate-800">영상 편집, 썸네일</span>
+                            </div>
+                        </div>
+
+                        <!-- 첨부된 AI 자산 -->
+                        <div class="border-t border-slate-100 pt-4">
+                            <h3 class="text-xs font-bold text-slate-400 uppercase mb-3">제공된 AI 자료 (전문가 열람용)</h3>
+                            <div class="flex gap-2 overflow-x-auto pb-2">
+                                <div class="flex-shrink-0 w-16 h-20 bg-slate-50 border border-slate-200 rounded flex flex-col items-center justify-center text-xs text-slate-500">
+                                    <i class="fa-solid fa-file-pdf text-red-500 text-xl mb-1"></i>
+                                    기획서
+                                </div>
+                                <div class="flex-shrink-0 w-16 h-20 bg-slate-50 border border-slate-200 rounded flex flex-col items-center justify-center text-xs text-slate-500">
+                                    <i class="fa-solid fa-images text-blue-500 text-xl mb-1"></i>
+                                    스토리보드
+                                </div>
+                                <div class="flex-shrink-0 w-16 h-20 bg-slate-50 border border-slate-200 rounded flex flex-col items-center justify-center text-xs text-slate-500">
+                                    <i class="fa-solid fa-file-lines text-slate-500 text-xl mb-1"></i>
+                                    회의록
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 팁 카드 -->
+                    <div class="bg-indigo-50 rounded-lg p-4 border border-indigo-100 text-sm text-indigo-800">
+                        <i class="fa-solid fa-circle-info mr-2"></i>
+                        <strong>매칭 팁:</strong> 제안 내용을 꼼꼼히 확인하고 전문가의 포트폴리오가 우리 프로젝트 톤앤매너(감성/정보성)와 맞는지 확인하세요.
+                    </div>
+                </div>
+
+                <!-- 오른쪽: 도착한 제안 리스트 -->
+                <div class="lg:col-span-2">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-lg font-bold text-slate-800">📨 도착한 제안 (3건)</h3>
+                        <div class="flex space-x-2 text-sm">
+                            <select class="border border-slate-300 rounded-lg px-3 py-1 text-slate-600 bg-white">
+                                <option>추천순</option>
+                                <option>최저가순</option>
+                                <option>평점순</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+
+                        <!-- 제안 1 (추천) -->
+                        <div class="bg-white rounded-xl border-2 border-indigo-500 shadow-md relative overflow-hidden transition-transform hover:-translate-y-1">
+                            <div class="bg-indigo-50 px-6 py-3 border-b border-indigo-100 flex justify-between items-center">
+                                <span class="text-indigo-700 font-bold text-sm"><i class="fa-solid fa-thumbs-up mr-1"></i> AI 매칭 적합도 98%</span>
+                                <span class="text-xs text-slate-500">1시간 전 도착</span>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div class="flex items-center">
+                                        <img src="https://source.unsplash.com/random/100x100/?man,editor" class="w-12 h-12 rounded-full border border-slate-200 mr-4">
+                                        <div>
+                                            <h4 class="font-bold text-lg text-slate-800">스튜디오 픽셀</h4>
+                                            <div class="flex items-center text-xs text-slate-500 mt-1">
+                                                <i class="fa-solid fa-star text-yellow-400 mr-1"></i> 4.9
+                                                <span class="mx-1">|</span>
+                                                <span>총 52건 작업</span>
+                                                <span class="mx-1">|</span>
+                                                <span class="text-blue-600 bg-blue-50 px-1 rounded">영상전문</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="text-2xl font-bold text-indigo-600">₩ 650,000</p>
+                                        <p class="text-xs text-slate-400">VAT 포함 / 수수료 포함</p>
+                                    </div>
+                                </div>
+
+                                <div class="bg-slate-50 rounded-lg p-4 text-sm text-slate-700 mb-4 border border-slate-100">
+                                    <p class="font-bold mb-2 text-slate-900">"통영 현지 감성, 드론샷 포함하여 완벽하게 살려드립니다."</p>
+                                    <p class="leading-relaxed">안녕하세요, 올려주신 기획서와 스토리보드 잘 확인했습니다. 특히 씬 1의 드론샷은 제가 보유한 매빅3 프로로 4K 촬영 가능합니다. 
+                                    더큐알 톤앤매너에 맞춰 깔끔한 자막과 빠른 컷 편집으로 MZ세대 타겟 영상 5편 제작 제안드립니다. <br><br>
+                                    <strong>[작업 일정]</strong> 자료 전달 후 3일 이내 초안 전달, 5일 이내 최종 납품 가능합니다.</p>
+                                </div>
+
+                                <div class="flex flex-col sm:flex-row gap-3">
+                                    <button class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg font-bold shadow-md transition-colors">
+                                        제안 수락 및 결제하기
+                                    </button>
+                                    <button class="flex-1 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 py-3 rounded-lg font-medium transition-colors">
+                                        <i class="fa-regular fa-comment-dots mr-2"></i>1:1 채팅 문의
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 제안 2 -->
+                        <div class="bg-white rounded-xl border border-slate-200 shadow-sm relative overflow-hidden hover:shadow-md transition-shadow">
+                            <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center">
+                                <span class="text-slate-600 font-bold text-sm">합리적인 제안</span>
+                                <span class="text-xs text-slate-500">3시간 전 도착</span>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div class="flex items-center">
+                                        <img src="https://source.unsplash.com/random/100x100/?woman,designer" class="w-12 h-12 rounded-full border border-slate-200 mr-4">
+                                        <div>
+                                            <h4 class="font-bold text-lg text-slate-800">크리에이티브 웍스</h4>
+                                            <div class="flex items-center text-xs text-slate-500 mt-1">
+                                                <i class="fa-solid fa-star text-yellow-400 mr-1"></i> 4.7
+                                                <span class="mx-1">|</span>
+                                                <span>총 128건 작업</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="text-2xl font-bold text-slate-800">₩ 550,000</p>
+                                        <p class="text-xs text-slate-400">VAT 포함</p>
+                                    </div>
+                                </div>
+
+                                <div class="bg-slate-50 rounded-lg p-4 text-sm text-slate-700 mb-4 border border-slate-100">
+                                    <p class="font-bold mb-2 text-slate-900">"가성비와 퀄리티 모두 잡은 숏폼 패키지"</p>
+                                    <p class="leading-relaxed text-slate-600 line-clamp-2">
+                                        기획해주신 스토리보드가 명확해서 작업이 수월할 것 같습니다. 컷 편집 위주로 빠르게 작업 가능하며, 배경음악 라이선스 비용 포함된 견적입니다. 썸네일 5종 서비스로 제작해드립니다.
+                                    </p>
+                                </div>
+
+                                <div class="flex flex-col sm:flex-row gap-3">
+                                    <button class="flex-1 bg-slate-800 hover:bg-slate-900 text-white py-3 rounded-lg font-medium transition-colors">
+                                        제안 수락 및 결제하기
+                                    </button>
+                                    <button class="flex-1 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 py-3 rounded-lg font-medium transition-colors">
+                                        1:1 채팅 문의
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 제안 3 -->
+                        <div class="bg-white rounded-xl border border-slate-200 shadow-sm relative overflow-hidden hover:shadow-md transition-shadow opacity-90">
+                            <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center">
+                                <span class="text-slate-600 font-bold text-sm">프리미엄 제안</span>
+                                <span class="text-xs text-slate-500">어제 도착</span>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div class="flex items-center">
+                                        <img src="https://source.unsplash.com/random/100x100/?team,marketing" class="w-12 h-12 rounded-full border border-slate-200 mr-4">
+                                        <div>
+                                            <h4 class="font-bold text-lg text-slate-800">바이럴 랩</h4>
+                                            <div class="flex items-center text-xs text-slate-500 mt-1">
+                                                <i class="fa-solid fa-star text-yellow-400 mr-1"></i> 4.8
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="text-2xl font-bold text-slate-800">₩ 850,000</p>
+                                        <p class="text-xs text-slate-400">VAT 포함</p>
+                                    </div>
+                                </div>
+                                <div class="bg-slate-50 rounded-lg p-4 text-sm text-slate-700 mb-4 border border-slate-100">
+                                    <p class="text-slate-600 line-clamp-2">영상 제작뿐만 아니라, 실제 인스타그램 광고 집행까지 포함된 패키지를 제안드립니다. 타겟 도달률을 높이기 위한 추가 전략이 포함되어 있습니다.</p>
+                                </div>
+                                <div class="flex flex-col sm:flex-row gap-3">
+                                    <button class="flex-1 bg-slate-800 hover:bg-slate-900 text-white py-3 rounded-lg font-medium transition-colors">
+                                        제안 수락
+                                    </button>
+                                    <button class="flex-1 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 py-3 rounded-lg font-medium transition-colors">
+                                        1:1 채팅
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The QR - Proposal Generation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700&display=swap');
+        
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .font-serif { font-family: 'Nanum Myeongjo', serif; }
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* A4 용지 비율 및 스타일 */
+        .a4-paper {
+            width: 210mm;
+            min-height: 297mm;
+            background: white;
+            margin: 0 auto;
+            padding: 20mm;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        @media (max-width: 1024px) {
+            .a4-paper { width: 100%; padding: 20px; }
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 h-screen flex overflow-hidden">
+
+    <!-- 사이드바 -->
+    <aside class="w-64 bg-white border-r border-slate-200 flex flex-col hidden md:flex z-20">
+        <div class="p-6 flex items-center border-b border-slate-100">
+            <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold mr-3">Q</div>
+            <h1 class="text-xl font-bold text-slate-800">The QR <span class="text-xs text-blue-500 font-normal">AI Ops</span></h1>
+        </div>
+
+        <nav class="flex-1 overflow-y-auto py-4">
+            <ul class="space-y-1 px-3">
+                <li>
+                    <a href="/" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-lg transition-colors group">
+                        <i class="fa-solid fa-chart-pie w-6 text-center group-hover:text-blue-600"></i>
+                        <span class="ml-2 font-medium">대시보드</span>
+                    </a>
+                </li>
+                <li>
+                    <div class="px-4 py-2 text-xs font-semibold text-slate-400 uppercase tracking-wider mt-4 mb-1">Process</div>
+                </li>
+                <li>
+                    <a href="01_meeting.html" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-lg transition-colors group">
+                        <i class="fa-solid fa-microphone-lines w-6 text-center group-hover:text-blue-600"></i>
+                        <span class="ml-2 font-medium">1. 미팅 분석/회의록</span>
+                        <i class="fa-solid fa-check text-green-500 ml-auto text-sm"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="02_marketing.html" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-lg transition-colors group">
+                        <i class="fa-solid fa-lightbulb w-6 text-center group-hover:text-blue-600"></i>
+                        <span class="ml-2 font-medium">2. 전략/브랜딩 수립</span>
+                        <i class="fa-solid fa-check text-green-500 ml-auto text-sm"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="03_plan.html" class="flex items-center px-4 py-3 bg-blue-50 text-blue-700 rounded-lg transition-colors">
+                        <i class="fa-solid fa-file-powerpoint w-6 text-center"></i>
+                        <span class="ml-2 font-bold">3. 기획서 생성</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="04_contents.html" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-lg transition-colors group">
+                        <i class="fa-solid fa-photo-film w-6 text-center group-hover:text-blue-600"></i>
+                        <span class="ml-2 font-medium">4. 콘텐츠 초안 제작</span>
+                    </a>
+                </li>
+                <li>
+                    <div class="px-4 py-2 text-xs font-semibold text-slate-400 uppercase tracking-wider mt-4 mb-1">Expert Matching</div>
+                </li>
+                <li>
+                    <a href="05_matching.html" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-lg transition-colors group">
+                        <i class="fa-solid fa-handshake w-6 text-center group-hover:text-blue-600"></i>
+                        <span class="ml-2 font-medium">전문가 매칭 요청</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="p-4 border-t border-slate-200">
+            <div class="flex items-center">
+                <img src="https://ui-avatars.com/api/?name=Youngmin+Jeong&background=0D8ABC&color=fff" alt="User" class="w-9 h-9 rounded-full">
+                <div class="ml-3">
+                    <p class="text-sm font-medium text-slate-700">정영민 대표</p>
+                    <p class="text-xs text-slate-500">The QR Admin</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- 메인 컨텐츠 -->
+    <main class="flex-1 flex flex-col min-w-0 overflow-hidden relative">
+        
+        <!-- 상단 툴바 (문서 에디터 스타일) -->
+        <header class="bg-white border-b border-slate-200 h-16 flex items-center justify-between px-6 z-10 shadow-sm shrink-0">
+            <div class="flex items-center space-x-4">
+                <div class="flex items-center text-slate-400 text-sm hidden md:flex">
+                    <span>Process</span>
+                    <i class="fa-solid fa-chevron-right mx-2 text-xs"></i>
+                    <span class="text-slate-800 font-medium">기획서 생성</span>
+                </div>
+                <div class="h-6 w-px bg-slate-300 hidden md:block"></div>
+                <!-- 에디터 툴바 아이콘들 -->
+                <div class="flex items-center space-x-1 bg-slate-50 rounded-lg p-1 border border-slate-200">
+                    <button class="p-1.5 text-slate-600 hover:bg-white hover:shadow-sm rounded transition-all" title="Bold"><i class="fa-solid fa-bold"></i></button>
+                    <button class="p-1.5 text-slate-600 hover:bg-white hover:shadow-sm rounded transition-all" title="Italic"><i class="fa-solid fa-italic"></i></button>
+                    <button class="p-1.5 text-slate-600 hover:bg-white hover:shadow-sm rounded transition-all" title="Underline"><i class="fa-solid fa-underline"></i></button>
+                    <div class="h-4 w-px bg-slate-300 mx-1"></div>
+                    <button class="p-1.5 text-blue-600 hover:bg-blue-50 rounded transition-all font-medium text-xs flex items-center">
+                        <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> AI 문구 다듬기
+                    </button>
+                </div>
+                <span class="text-xs text-slate-400 ml-2"><i class="fa-solid fa-check mr-1"></i> 자동 저장됨 (10:23 AM)</span>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+                <button class="px-4 py-2 border border-slate-300 rounded-lg text-sm text-slate-700 hover:bg-slate-50 transition-colors font-medium">
+                    <i class="fa-regular fa-file-pdf mr-2 text-red-500"></i>PDF 저장
+                </button>
+                <button class="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm hover:bg-indigo-700 transition-colors font-bold shadow-md">
+                    <i class="fa-solid fa-share-nodes mr-2"></i>제안서 공유
+                </button>
+            </div>
+        </header>
+
+        <!-- 문서 편집 영역 -->
+        <div class="flex-1 flex overflow-hidden">
+            
+            <!-- 문서 목차 (좌측 패널) -->
+            <div class="w-64 bg-slate-50 border-r border-slate-200 overflow-y-auto hidden lg:block p-4">
+                <h3 class="text-xs font-bold text-slate-500 uppercase mb-4 px-2">Table of Contents</h3>
+                <ul class="space-y-1 text-sm">
+                    <li><a href="#section-cover" class="block px-3 py-2 rounded-lg bg-blue-100 text-blue-700 font-medium">1. 표지 (Cover)</a></li>
+                    <li><a href="#section-overview" class="block px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-100">2. 제안 배경 및 목적</a></li>
+                    <li><a href="#section-market" class="block px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-100">3. 시장 및 타겟 분석</a></li>
+                    <li><a href="#section-strategy" class="block px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-100">4. 핵심 전략 (Short-form)</a></li>
+                    <li><a href="#section-plan" class="block px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-100">5. 실행 계획 및 일정</a></li>
+                    <li><a href="#section-company" class="block px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-100">6. 수행 회사 소개 (The QR)</a></li>
+                </ul>
+                
+                <div class="mt-8 px-2">
+                    <div class="bg-indigo-50 border border-indigo-100 rounded-lg p-3">
+                        <div class="flex items-start">
+                            <i class="fa-solid fa-circle-info text-indigo-500 mt-0.5 mr-2"></i>
+                            <div>
+                                <p class="text-xs font-bold text-indigo-800">AI Writer Tip</p>
+                                <p class="text-xs text-indigo-600 mt-1">회사 소개 섹션에 사용자 프로필(더큐알) 정보를 자동으로 반영했습니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 실제 문서 영역 (중앙) -->
+            <div class="flex-1 overflow-y-auto bg-slate-100 p-8 md:p-12" id="documentArea">
+                
+                <div class="a4-paper relative group">
+                    <!-- 페이지 1: 표지 -->
+                    <section id="section-cover" class="border-b-2 border-slate-100 pb-20 mb-20 relative">
+                        <div class="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button class="bg-slate-100 hover:bg-slate-200 text-slate-600 p-2 rounded"><i class="fa-solid fa-pen"></i></button>
+                        </div>
+
+                        <div class="h-full flex flex-col justify-between" style="min-height: 250mm;">
+                            <div class="pt-20">
+                                <p class="text-blue-600 font-bold tracking-widest uppercase mb-4">Marketing Proposal</p>
+                                <h1 class="text-5xl font-serif font-bold text-slate-900 leading-tight mb-8">
+                                    2026 통영시 관광 활성화<br>
+                                    디지털 마케팅 제안서
+                                </h1>
+                                <div class="w-24 h-2 bg-blue-600"></div>
+                            </div>
+                            
+                            <div class="bg-slate-50 p-8 rounded-xl border border-slate-100">
+                                <h2 class="text-xl font-bold text-slate-800 mb-2">"통영, 맛있는 바다를 숏(Short)하게 즐기다"</h2>
+                                <p class="text-slate-500">숏폼 콘텐츠 중심의 MZ세대 타겟팅 전략</p>
+                            </div>
+
+                            <div class="pb-10 grid grid-cols-2 gap-8 text-sm">
+                                <div>
+                                    <p class="text-slate-400 font-medium mb-1">SUBMITTED TO</p>
+                                    <p class="text-slate-800 font-bold text-lg">통영시청 관광과 귀중</p>
+                                    <p class="text-slate-500">경상남도 통영시 통영해안로 515</p>
+                                </div>
+                                <div>
+                                    <p class="text-slate-400 font-medium mb-1">PREPARED BY</p>
+                                    <p class="text-slate-800 font-bold text-lg">더큐알 (The QR)</p>
+                                    <p class="text-slate-500">대표 정영민</p>
+                                    <p class="text-slate-500">경남 통영시 광도면 죽림해안로 66 4층</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 페이지 2: 내용 -->
+                    <section id="section-overview" class="mb-12">
+                        <h2 class="text-2xl font-bold text-slate-800 border-b border-slate-200 pb-2 mb-6">1. 제안 배경 및 목적</h2>
+                        <div class="text-slate-700 leading-relaxed space-y-4">
+                            <p>
+                                최근 관광 트렌드는 '보는 관광'에서 '경험하는 관광'으로, 정보 습득 채널은 '텍스트/블로그'에서 '숏폼 영상'으로 급격히 변화하고 있습니다. 특히 MZ세대를 중심으로 한 '촌캉스', '로컬 미식 여행'의 유행은 통영시에 새로운 기회 요인으로 작용하고 있습니다.
+                            </p>
+                            <p>
+                                이에 본 제안서는 기존의 정적인 홍보 방식에서 탈피하여, <span class="bg-yellow-100 px-1">유튜브 쇼츠(Shorts)와 인스타그램 릴스(Reels)를 활용한 숏폼 콘텐츠 강화</span>를 통해 통영의 숨겨진 매력을 직관적으로 전달하고, 실질적인 방문객 유입을 증대시키는 것을 목적으로 합니다.
+                            </p>
+                        </div>
+                    </section>
+
+                    <section id="section-strategy" class="mb-12">
+                        <h2 class="text-2xl font-bold text-slate-800 border-b border-slate-200 pb-2 mb-6">4. 핵심 전략 및 실행 방안</h2>
+                        
+                        <div class="grid grid-cols-2 gap-6 mb-6">
+                            <div class="bg-blue-50 p-5 rounded-lg border border-blue-100">
+                                <h3 class="font-bold text-blue-800 mb-2"><i class="fa-solid fa-video mr-2"></i>숏폼 콘텐츠 대량 생산</h3>
+                                <p class="text-sm text-slate-600 mb-2">월 4편 이상의 고퀄리티 숏폼 제작</p>
+                                <ul class="list-disc list-inside text-xs text-slate-500 space-y-1">
+                                    <li>현지인 맛집 리얼 리뷰</li>
+                                    <li>드론을 활용한 시네마틱 오프닝</li>
+                                    <li>1분 이내 빠른 템포 편집 (파이널컷 활용)</li>
+                                </ul>
+                            </div>
+                            <div class="bg-indigo-50 p-5 rounded-lg border border-indigo-100">
+                                <h3 class="font-bold text-indigo-800 mb-2"><i class="fa-solid fa-map-location-dot mr-2"></i>로컬 큐레이션</h3>
+                                <p class="text-sm text-slate-600 mb-2">통영 현지 기업의 노하우 활용</p>
+                                <ul class="list-disc list-inside text-xs text-slate-500 space-y-1">
+                                    <li>알려지지 않은 히든 스팟 발굴</li>
+                                    <li>지역 상인 인터뷰 포함</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="section-company" class="mb-12">
+                        <h2 class="text-2xl font-bold text-slate-800 border-b border-slate-200 pb-2 mb-6">6. 수행 회사 소개: 더큐알 (The QR)</h2>
+                        
+                        <div class="flex items-start mb-6">
+                            <div class="mr-4 mt-1">
+                                <div class="w-12 h-12 bg-slate-900 text-white rounded-lg flex items-center justify-center font-bold text-xl">Q</div>
+                            </div>
+                            <div>
+                                <p class="text-slate-800 font-bold text-lg">"통영을 가장 잘 아는 디지털 콘텐츠 전문가 그룹"</p>
+                                <p class="text-sm text-slate-600 mt-1">더큐알은 기획부터 촬영, 편집, 마케팅까지 원스톱 솔루션을 제공하는 B2G/B2B 전문 에이전시입니다.</p>
+                            </div>
+                        </div>
+
+                        <!-- 팀 구성도 (자동 반영 부분) -->
+                        <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
+                            <h3 class="font-bold text-slate-700 mb-4 text-sm uppercase">Project Team Composition</h3>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                                <div class="bg-white p-3 rounded shadow-sm">
+                                    <div class="text-blue-600 mb-1"><i class="fa-solid fa-crown"></i></div>
+                                    <p class="font-bold text-sm">총괄 책임자</p>
+                                    <p class="text-xs text-slate-500 mt-1">정영민 대표</p>
+                                </div>
+                                <div class="bg-white p-3 rounded shadow-sm">
+                                    <div class="text-blue-600 mb-1"><i class="fa-solid fa-video"></i></div>
+                                    <p class="font-bold text-sm">촬영/영상팀</p>
+                                    <p class="text-xs text-slate-500 mt-1">정지운 감독 외 2명</p>
+                                    <p class="text-[10px] text-slate-400 mt-1 scale-90">Sony, Drone, FCPX</p>
+                                </div>
+                                <div class="bg-white p-3 rounded shadow-sm">
+                                    <div class="text-blue-600 mb-1"><i class="fa-solid fa-pen-nib"></i></div>
+                                    <p class="font-bold text-sm">콘텐츠 기획팀</p>
+                                    <p class="text-xs text-slate-500 mt-1">3명</p>
+                                </div>
+                                <div class="bg-white p-3 rounded shadow-sm">
+                                    <div class="text-blue-600 mb-1"><i class="fa-solid fa-bullhorn"></i></div>
+                                    <p class="font-bold text-sm">온라인 마케팅팀</p>
+                                    <p class="text-xs text-slate-500 mt-1">1명</p>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-slate-200 flex justify-between text-xs text-slate-500">
+                                <span><i class="fa-brands fa-windows mr-1"></i> Windows OS Base</span>
+                                <span><i class="fa-brands fa-apple mr-1"></i> Mac OS (Video Editing)</span>
+                                <span><i class="fa-brands fa-dropbox mr-1"></i> Synology NAS Infra</span>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- 하단 플로팅 액션 (다음 단계) -->
+        <div class="absolute bottom-8 right-8 z-30">
+            <button class="flex items-center bg-blue-600 hover:bg-blue-700 text-white px-6 py-4 rounded-full font-bold shadow-lg shadow-blue-500/30 transition-all hover:-translate-y-1">
+                <span>4단계: 콘텐츠 초안(카드뉴스/영상) 생성</span>
+                <i class="fa-solid fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+
+    </main>
+</body>
+</html>

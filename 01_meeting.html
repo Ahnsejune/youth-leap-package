@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The QR - AI Integrated Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        
+        /* 스크롤바 커스텀 */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        .analysis-loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3b82f6;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .wave-bar {
+            animation: wave 1s ease-in-out infinite;
+        }
+        @keyframes wave {
+            0%, 100% { height: 40%; }
+            50% { height: 100%; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 h-screen flex overflow-hidden">
+
+    <!-- 사이드바 -->
+    <aside class="w-64 bg-white border-r border-slate-200 flex flex-col hidden md:flex">
+        <div class="p-6 flex items-center border-b border-slate-100">
+            <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold mr-3">Q</div>
+            <h1 class="text-xl font-bold text-slate-800">The QR <span class="text-xs text-blue-500 font-normal">AI Ops</span></h1>
+        </div>
+
+        <nav class="flex-1 overflow-y-auto py-4">
+            <ul class="space-y-1 px-3">
+                <li>
+                    <a href="/" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-lg transition-colors group">
+                        <i class="fa-solid fa-chart-pie w-6 text-center group-hover:text-blue-600"></i>
+                        <span class="ml-2 font-medium">대시보드</span>
+                    </a>
+                </li>
+                <li>
+                    <div class="px-4 py-2 text-xs font-semibold text-slate-400 uppercase tracking-wider mt-4 mb-1">Process</div>
+                </li>
+                <li>
+                    <a href="01_meeting.html" class="flex items-center px-4 py-3 bg-blue-50 text-blue-700 rounded-lg transition-colors">
+                        <i class="fa-solid fa-microphone-lines w-6 text-center"></i>
+                        <span class="ml-2 font-bold">1. 미팅 분석/회의록</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="02_marketing.html" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-lg transition-colors group">
+                        <i class="fa-solid fa-lightbulb w-6 text-center group-hover:text-blue-600"></i>
+                        <span class="ml-2 font-medium">2. 전략/브랜딩 수립</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="03_plan.html" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-lg transition-colors group">
+                        <i class="fa-solid fa-file-powerpoint w-6 text-center group-hover:text-blue-600"></i>
+                        <span class="ml-2 font-medium">3. 기획서 생성</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="04_contents.html" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-lg transition-colors group">
+                        <i class="fa-solid fa-photo-film w-6 text-center group-hover:text-blue-600"></i>
+                        <span class="ml-2 font-medium">4. 콘텐츠 초안 제작</span>
+                    </a>
+                </li>
+                <li>
+                    <div class="px-4 py-2 text-xs font-semibold text-slate-400 uppercase tracking-wider mt-4 mb-1">Expert Matching</div>
+                </li>
+                <li>
+                    <a href="05_matching.html" class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-lg transition-colors group">
+                        <i class="fa-solid fa-handshake w-6 text-center group-hover:text-blue-600"></i>
+                        <span class="ml-2 font-medium">전문가 매칭 요청</span>
+                        <span class="ml-auto bg-green-100 text-green-600 py-0.5 px-2 rounded-full text-xs">New</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="p-4 border-t border-slate-200">
+            <div class="flex items-center">
+                <img src="https://ui-avatars.com/api/?name=Youngmin+Jeong&background=0D8ABC&color=fff" alt="User" class="w-9 h-9 rounded-full">
+                <div class="ml-3">
+                    <p class="text-sm font-medium text-slate-700">정영민 대표</p>
+                    <p class="text-xs text-slate-500">The QR Admin</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- 메인 컨텐츠 -->
+    <main class="flex-1 flex flex-col min-w-0 overflow-hidden">
+        <!-- 헤더 -->
+        <header class="bg-white border-b border-slate-200 h-16 flex items-center justify-between px-6 lg:px-8 z-10">
+            <div class="flex items-center text-slate-400 text-sm">
+                <span>Home</span>
+                <i class="fa-solid fa-chevron-right mx-2 text-xs"></i>
+                <span class="text-slate-800 font-medium">미팅 기록 분석</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button class="text-slate-400 hover:text-slate-600 relative">
+                    <i class="fa-regular fa-bell text-xl"></i>
+                    <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white"></span>
+                </button>
+                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-sm">
+                    <i class="fa-solid fa-plus mr-1"></i> 새 프로젝트
+                </button>
+            </div>
+        </header>
+
+        <!-- 컨텐츠 영역 -->
+        <div class="flex-1 overflow-y-auto bg-slate-50 p-6 lg:p-8">
+            
+            <div class="max-w-7xl mx-auto">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-slate-800">미팅 기록 분석 및 회의록 정리</h2>
+                    <p class="text-slate-500 mt-1">AI가 음성/영상을 분석하거나 텍스트 회의록을 입력받아 핵심 내용을 요약합니다.</p>
+                </div>
+
+                <!-- Step 1: 업로드 및 입력 선택 영역 (수정됨) -->
+                <div id="uploadSection" class="transition-all duration-300">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        
+                        <!-- Option A: 파일 업로드 카드 -->
+                        <div class="bg-white rounded-xl shadow-sm border-2 border-dashed border-slate-300 p-8 flex flex-col items-center justify-center hover:bg-blue-50 hover:border-blue-300 transition-colors cursor-pointer group h-96" onclick="startProcessing('file')">
+                            <div class="w-20 h-20 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-cloud-arrow-up text-3xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900">녹음 파일 업로드</h3>
+                            <p class="text-slate-500 mt-2 text-center text-sm">MP3, MP4, WAV, M4A 파일<br>AI가 음성을 텍스트로 변환합니다.</p>
+                            <span class="mt-6 px-4 py-2 bg-white border border-slate-200 rounded-full text-xs font-medium text-slate-500 group-hover:text-blue-600 group-hover:border-blue-200">클릭하여 파일 선택</span>
+                        </div>
+
+                        <!-- Option B: 텍스트 입력 카드 (추가됨) -->
+                        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 flex flex-col h-96">
+                            <div class="flex items-center mb-4">
+                                <div class="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="fa-solid fa-pen-to-square text-lg"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-slate-900">회의록 텍스트 직접 입력</h3>
+                                    <p class="text-xs text-slate-500">작성된 회의 내용을 붙여넣으세요.</p>
+                                </div>
+                            </div>
+                            <div class="flex-1 relative mb-4">
+                                <textarea id="meetingTextInput" class="w-full h-full bg-slate-50 border border-slate-200 rounded-lg p-4 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 resize-none transition-shadow" placeholder="예시:
+[참석자] 정영민 대표, 김마케터
+[주요 안건] 2026년 마케팅 방향성
+..."></textarea>
+                            </div>
+                            <button onclick="startProcessing('text')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg font-medium transition-colors shadow-sm flex items-center justify-center">
+                                <i class="fa-solid fa-wand-magic-sparkles mr-2"></i> 텍스트 분석 및 요약 시작
+                            </button>
+                        </div>
+
+                    </div>
+                    
+                    <div class="mt-6 flex justify-center space-x-8 text-slate-400 text-xs">
+                        <span class="flex items-center"><i class="fa-solid fa-lock mr-1"></i> 모든 데이터는 암호화되어 처리됩니다</span>
+                        <span class="flex items-center"><i class="fa-solid fa-bolt mr-1"></i> 평균 처리 시간: 1~3분</span>
+                    </div>
+                </div>
+
+                <!-- Step 2: 로딩 화면 (숨김) -->
+                <div id="loadingSection" class="hidden bg-white rounded-xl shadow-sm border border-slate-200 p-20 text-center">
+                    <div class="flex flex-col items-center justify-center">
+                        <div class="analysis-loader mb-6"></div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-2" id="loadingTitle">AI가 내용을 분석 중입니다...</h3>
+                        <p class="text-slate-500 text-sm mb-6" id="loadingDesc">데이터를 처리하고, 주요 안건을 추출하고 있습니다.</p>
+                        
+                        <div class="w-full max-w-md bg-slate-100 rounded-full h-2.5 mb-2 overflow-hidden">
+                            <div id="progressBar" class="bg-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
+                        </div>
+                        <p id="progressText" class="text-xs text-blue-600 font-medium">분석 시작... 0%</p>
+                    </div>
+                </div>
+
+                <!-- Step 3: 분석 결과 화면 (숨김) -->
+                <div id="resultSection" class="hidden space-y-6">
+                    
+                    <!-- 상단: 오디오 플레이어 & 메타데이터 -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-6">
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-800">2025 마케팅 전략 기획 회의 (통영 관광 홍보)</h3>
+                                <div class="flex items-center text-sm text-slate-500 mt-1 space-x-4">
+                                    <span><i class="fa-regular fa-calendar mr-1"></i> 2025. 12. 01</span>
+                                    <span id="audioTypeInfo"><i class="fa-regular fa-clock mr-1"></i> 45분 12초</span>
+                                    <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs font-medium">B2G 프로젝트</span>
+                                </div>
+                            </div>
+                            <div class="mt-4 md:mt-0 flex space-x-2">
+                                <button class="px-3 py-1.5 border border-slate-300 rounded-lg text-sm text-slate-600 hover:bg-slate-50">
+                                    <i class="fa-solid fa-download mr-1"></i> 원본 다운로드
+                                </button>
+                                <button onclick="resetDemo()" class="px-3 py-1.5 bg-slate-800 text-white rounded-lg text-sm hover:bg-slate-700">
+                                    <i class="fa-solid fa-rotate-right mr-1"></i> 다시 분석
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 가짜 오디오 파형 (파일 업로드 시에만 표시) -->
+                        <div id="audioWavePlayer" class="bg-slate-50 rounded-lg p-4 flex items-center space-x-3 mb-4 transition-opacity">
+                            <button class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white hover:bg-blue-700">
+                                <i class="fa-solid fa-play ml-1"></i>
+                            </button>
+                            <div class="flex-1 h-12 flex items-center justify-between space-x-1 px-2" id="waveContainer">
+                                <!-- JS로 파형 생성 -->
+                            </div>
+                            <span class="text-xs text-slate-500 font-mono">12:34 / 45:12</span>
+                        </div>
+                    </div>
+
+                    <!-- 하단: 2단 그리드 (요약 vs 전문) -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        
+                        <!-- 왼쪽: AI 요약 레포트 -->
+                        <div class="lg:col-span-2 space-y-6">
+                            <!-- 1. 핵심 요약 -->
+                            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h4 class="text-base font-bold text-slate-800 flex items-center">
+                                        <i class="fa-solid fa-star text-yellow-400 mr-2"></i> 핵심 요약 (AI Summary)
+                                    </h4>
+                                    <button class="text-xs text-blue-600 hover:underline">수정하기</button>
+                                </div>
+                                <div class="space-y-4 text-sm text-slate-700 leading-relaxed">
+                                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
+                                        <p class="font-bold text-blue-800 mb-2">📌 회의 목표</p>
+                                        <p>통영시 관광 홍보를 위한 2026년 상반기 유튜브 및 SNS 콘텐츠 방향성 확립 및 R&R 분배</p>
+                                    </div>
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li><strong class="text-slate-900">숏폼 트렌드 반영:</strong> 기존 롱폼 위주에서 숏폼(1분 이내) 비중을 70%까지 확대하기로 합의함.</li>
+                                        <li><strong class="text-slate-900">현지인 맛집 시리즈:</strong> 단순 관광지 나열이 아닌, 현지인 인터뷰 형식을 도입하여 신뢰도 확보 전략 수립.</li>
+                                        <li><strong class="text-slate-900">드론 촬영 일정:</strong> 기상 상황을 고려하여 12월 2주차에 해안로 드론 촬영 진행 예정.</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- 2. 결정 사항 및 Action Items -->
+                            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                                <h4 class="text-base font-bold text-slate-800 mb-4 flex items-center">
+                                    <i class="fa-solid fa-check-double text-green-500 mr-2"></i> 결정 사항 및 Action Plan
+                                </h4>
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-sm text-left">
+                                        <thead class="text-xs text-slate-500 uppercase bg-slate-50 border-b border-slate-200">
+                                            <tr>
+                                                <th class="px-4 py-3">구분</th>
+                                                <th class="px-4 py-3">실행 내용</th>
+                                                <th class="px-4 py-3">담당자</th>
+                                                <th class="px-4 py-3">마감기한</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-slate-100">
+                                            <tr>
+                                                <td class="px-4 py-3"><span class="bg-red-100 text-red-600 px-2 py-0.5 rounded text-xs font-bold">긴급</span></td>
+                                                <td class="px-4 py-3 font-medium">드론 촬영 허가 공문 발송</td>
+                                                <td class="px-4 py-3">정지운 감독</td>
+                                                <td class="px-4 py-3 text-slate-500">12/03 (수)</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-4 py-3"><span class="bg-blue-100 text-blue-600 px-2 py-0.5 rounded text-xs font-bold">기획</span></td>
+                                                <td class="px-4 py-3">숏폼 스토리보드 5종 초안 작성</td>
+                                                <td class="px-4 py-3">콘텐츠팀</td>
+                                                <td class="px-4 py-3 text-slate-500">12/05 (금)</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-4 py-3"><span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded text-xs font-bold">디자인</span></td>
+                                                <td class="px-4 py-3">유튜브 썸네일 템플릿 리뉴얼</td>
+                                                <td class="px-4 py-3">디자인팀</td>
+                                                <td class="px-4 py-3 text-slate-500">12/10 (수)</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <!-- 다음 단계 버튼 -->
+                            <div class="flex justify-end pt-4">
+                                <button class="flex items-center bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-bold shadow-md transition-transform hover:-translate-y-0.5">
+                                    <span>다음 단계: 전략 수립(AI) 로 이동</span>
+                                    <i class="fa-solid fa-arrow-right ml-2"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 오른쪽: 스크립트 & 키워드 -->
+                        <div class="lg:col-span-1 space-y-6">
+                            
+                            <!-- 키워드 클라우드 -->
+                            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                                <h4 class="text-sm font-bold text-slate-500 uppercase mb-3">주요 키워드</h4>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm hover:bg-slate-200 cursor-pointer">#통영여행</span>
+                                    <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm hover:bg-blue-200 cursor-pointer font-medium">#숏폼마케팅</span>
+                                    <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm hover:bg-slate-200 cursor-pointer">#MZ세대</span>
+                                    <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm hover:bg-slate-200 cursor-pointer">#현지인맛집</span>
+                                    <span class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm hover:bg-slate-200 cursor-pointer">#드론촬영</span>
+                                    <span class="px-3 py-1 bg-red-50 text-red-600 rounded-full text-sm hover:bg-red-100 cursor-pointer">#예산집행</span>
+                                </div>
+                            </div>
+
+                            <!-- 대화 스크립트 -->
+                            <div class="bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col h-[600px]">
+                                <div class="p-4 border-b border-slate-100 flex justify-between items-center">
+                                    <h4 class="font-bold text-slate-800">대화 상세 (스크립트)</h4>
+                                    <div class="text-xs text-slate-400 flex items-center">
+                                        <i class="fa-solid fa-magnifying-glass mr-1"></i> 검색
+                                    </div>
+                                </div>
+                                <div class="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50">
+                                    
+                                    <!-- 발화자 A -->
+                                    <div class="flex space-x-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-indigo-500 rounded-full flex items-center justify-center text-white text-xs">정</div>
+                                        <div>
+                                            <div class="flex items-baseline space-x-2">
+                                                <span class="text-sm font-bold text-slate-700">정영민 대표</span>
+                                                <span class="text-xs text-slate-400">00:05</span>
+                                            </div>
+                                            <div class="bg-white p-3 rounded-r-lg rounded-bl-lg shadow-sm text-sm text-slate-700 mt-1 border border-slate-100">
+                                                자, 그럼 이번 통영시 홍보 건 관련해서 회의 시작하겠습니다. 지난번 미팅 때 숏폼 비중을 늘리자는 의견이 있었는데, 구체적으로 어떻게 할지 이야기해 봅시다.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 발화자 B -->
+                                    <div class="flex space-x-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center text-white text-xs">김</div>
+                                        <div>
+                                            <div class="flex items-baseline space-x-2">
+                                                <span class="text-sm font-bold text-slate-700">김마케터</span>
+                                                <span class="text-xs text-slate-400">00:18</span>
+                                            </div>
+                                            <div class="bg-white p-3 rounded-r-lg rounded-bl-lg shadow-sm text-sm text-slate-700 mt-1 border border-slate-100">
+                                                네, 현재 인스타그램 릴스랑 유튜브 쇼츠 트렌드를 보면 확실히 15초에서 30초 사이의 빠른 템포 영상이 반응이 좋습니다. 기존 홍보 영상처럼 너무 아름다운 풍경만 보여주기보다는, 재미있는 스토리가 필요해요.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 발화자 C -->
+                                    <div class="flex space-x-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-green-600 rounded-full flex items-center justify-center text-white text-xs">지</div>
+                                        <div>
+                                            <div class="flex items-baseline space-x-2">
+                                                <span class="text-sm font-bold text-slate-700">정지운 감독</span>
+                                                <span class="text-xs text-slate-400">00:45</span>
+                                            </div>
+                                            <div class="bg-white p-3 rounded-r-lg rounded-bl-lg shadow-sm text-sm text-slate-700 mt-1 border border-slate-100">
+                                                맞습니다. 저도 파이널컷으로 작업할 때 숏폼용 템플릿을 따로 만들고 있어요. 그리고 이번에 죽림해안로 쪽 드론 샷을 오프닝에 넣으면 임팩트가 있을 것 같습니다.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                     <!-- 발화자 A -->
+                                     <div class="flex space-x-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-indigo-500 rounded-full flex items-center justify-center text-white text-xs">정</div>
+                                        <div>
+                                            <div class="flex items-baseline space-x-2">
+                                                <span class="text-sm font-bold text-slate-700">정영민 대표</span>
+                                                <span class="text-xs text-slate-400">01:10</span>
+                                            </div>
+                                            <div class="bg-white p-3 rounded-r-lg rounded-bl-lg shadow-sm text-sm text-slate-700 mt-1 border border-slate-100">
+                                                좋아요. 그럼 정 감독님은 드론 촬영 일정 잡아주시고, 마케팅팀은 스토리보드 초안 5개 정도 잡아주세요. 이걸로 AI 기획서 돌려보죠.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="p-3 bg-white border-t border-slate-200">
+                                    <button class="w-full text-center text-sm text-blue-600 font-medium py-1 hover:bg-blue-50 rounded">
+                                        전체 스크립트 보기
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // 오디오 파형 시각화 생성 (단순 시각효과)
+        const waveContainer = document.getElementById('waveContainer');
+        for(let i=0; i<40; i++) {
+            const bar = document.createElement('div');
+            bar.className = 'bg-blue-300 w-1 rounded-full wave-bar';
+            // 랜덤 높이 및 애니메이션 지연
+            bar.style.height = Math.random() * 60 + 40 + '%';
+            bar.style.animationDuration = Math.random() * 0.5 + 0.8 + 's';
+            waveContainer.appendChild(bar);
+        }
+
+        // 데모 시뮬레이션 로직
+        function startProcessing(type) {
+            document.getElementById('uploadSection').classList.add('hidden');
+            document.getElementById('loadingSection').classList.remove('hidden');
+
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            const loadingTitle = document.getElementById('loadingTitle');
+            const loadingDesc = document.getElementById('loadingDesc');
+            const audioPlayer = document.getElementById('audioWavePlayer');
+            const audioTypeInfo = document.getElementById('audioTypeInfo');
+
+            // 입력 타입에 따라 로딩 메시지와 결과 화면 조정
+            if (type === 'text') {
+                loadingTitle.innerText = "AI가 텍스트 내용을 분석 중입니다...";
+                loadingDesc.innerText = "문맥을 이해하고 핵심 안건을 요약하고 있습니다.";
+                audioPlayer.classList.add('hidden'); // 텍스트 모드에선 파형 숨김
+                audioTypeInfo.innerHTML = '<i class="fa-solid fa-file-lines mr-1"></i> 텍스트 분석';
+            } else {
+                loadingTitle.innerText = "AI가 미팅 내용을 분석 중입니다...";
+                loadingDesc.innerText = "음성을 텍스트로 변환하고, 주요 안건을 추출하고 있습니다.";
+                audioPlayer.classList.remove('hidden');
+                audioTypeInfo.innerHTML = '<i class="fa-regular fa-clock mr-1"></i> 45분 12초';
+            }
+
+            let width = 0;
+            const interval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    setTimeout(showResult, 500);
+                } else {
+                    width += Math.random() * 5; // 랜덤 속도
+                    if(width > 100) width = 100;
+                    progressBar.style.width = width + '%';
+                    progressText.innerText = `AI 분석 중... ${Math.floor(width)}%`;
+                }
+            }, 100);
+        }
+
+        function showResult() {
+            document.getElementById('loadingSection').classList.add('hidden');
+            document.getElementById('resultSection').classList.remove('hidden');
+        }
+
+        function resetDemo() {
+            document.getElementById('resultSection').classList.add('hidden');
+            document.getElementById('uploadSection').classList.remove('hidden');
+            // 입력창 초기화 (선택적)
+            document.getElementById('meetingTextInput').value = '';
+        }
+    </script>
+</body>
+</html>
